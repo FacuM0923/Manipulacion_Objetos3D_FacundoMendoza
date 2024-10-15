@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour {
 
-    public float speed = 5f;
+    private CubeBehaviour cubeBehaviour;
 
-    public float rotationSpeed = 50f;
+    void Start(){
+        cubeBehaviour = GetComponent<CubeBehaviour>();
+    }
 
     void Update(){
 
@@ -16,8 +18,9 @@ public class CubeController : MonoBehaviour {
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         movementDirection.Normalize();
 
-        transform.position = transform.position + movementDirection * speed * Time.deltaTime;
-        if (movementDirection != Vector3.zero) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotationSpeed * Time.deltaTime);
+        cubeBehaviour.Movement(movementDirection);
+        cubeBehaviour.Rotation(movementDirection);
+
     }
 
 }
